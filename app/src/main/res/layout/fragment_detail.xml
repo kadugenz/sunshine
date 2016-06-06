@@ -14,12 +14,18 @@
         <TextView
             android:id="@+id/detail_day_textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/detail_date_textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/sunshine_detail_grey"/>
 
         <!-- Main content: high, low, art, weather state -->
         <LinearLayout
@@ -36,13 +42,22 @@
 
                 <TextView
                     android:id="@+id/detail_high_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="96sp"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/black"
+                    android:paddingLeft="20dp"/>
 
                 <TextView
                     android:id="@+id/detail_low_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="48sp"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/sunshine_detail_grey"
+                    android:gravity="center"
+                    android:layout_marginTop="3dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -55,12 +70,16 @@
                 <ImageView
                     android:id="@+id/detail_icon"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"/>
 
                 <TextView
                     android:id="@+id/detail_forecast_textview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@color/sunshine_detail_grey"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -69,16 +88,26 @@
         <TextView
             android:id="@+id/detail_humidity_textview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="4dp"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-light"/>
 
         <TextView
             android:id="@+id/detail_wind_textview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-light"/>
 
         <TextView
             android:id="@+id/detail_pressure_textview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-light"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

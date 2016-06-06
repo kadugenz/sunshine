@@ -1,18 +1,17 @@
 package com.spartatech.sunshine.app;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.spartatech.sunshine.app.sync.SunshineSyncAdapter;
 import com.spartatech.sunshine.app.util.Utility;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ForecastFragment.Callback {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
 
@@ -42,6 +41,31 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             mTwoPane = false;
+            getSupportActionBar().setElevation(0f);
+        }
+
+        final ForecastFragment ff = (ForecastFragment) getFragmentManager().findFragmentById(R.id.fragment_forecast);
+        ff.useSpecialTodayView(!mTwoPane);
+
+        SunshineSyncAdapter.initializeSyncAdapter(this);
+    }
+
+    @Override
+    public void onItemSelected(Uri dateUri) {
+        Log.v(LOG_TAG, "onItemSelected");
+        if (mTwoPane) {
+            Bundle args = new Bundle();
+            args.putParcelable(DetailActivityFragment.DETAIL_URI, dateUri);
+
+            DetailActivityFragment fragment = new DetailActivityFragment();
+            fragment.setArguments(args);
+
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.weather_detail_container, fragment, DETAILFRAGMENT_TAG)
+                    .commit();
+        } else {
+            Intent intent = new Intent(this, DetailActivity.class).setData(dateUri);
+            startActivity(intent);
         }
     }
 
@@ -90,19 +114,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        if (id == R.id.action_view_map) {
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-            final String zipCode = sharedPref.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
-
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(new Uri.Builder().scheme("geo").appendPath("0,0").appendQueryParameter("q", zipCode).build());
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            }
-
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -116,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
             ForecastFragment ff = (ForecastFragment) getFragmentManager().findFragmentById(R.id.fragment_forecast);
             if (null != ff) {
                 ff.onLocationChanged();
+            }
+            DetailActivityFragment df = (DetailActivityFragment) getFragmentManager().findFragmentByTag(DETAILFRAGMENT_TAG);
+            if ( null != df ) {
+                df.onLocationChanged(location);
             }
             mLocation = location;
         }

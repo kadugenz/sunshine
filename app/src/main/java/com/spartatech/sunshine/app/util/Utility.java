@@ -26,9 +26,9 @@ public class Utility {
         return TemperatureUnit.valueOf(unitType) == TemperatureUnit.METRIC;
     }
 
-    public static String formatTemperature(Context context, double temperature, boolean isMetric) {
+    public static String formatTemperature(Context context, double temperature) {
         double temp;
-        if ( !isMetric ) {
+        if ( !isMetric(context) ) {
             temp = 9*temperature/5+32;
         } else {
             temp = temperature;
